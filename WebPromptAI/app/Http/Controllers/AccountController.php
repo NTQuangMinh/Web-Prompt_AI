@@ -14,7 +14,7 @@ class AccountController extends Controller
         $selectedType = $request->get('type', '');
         $accounts = Account::query()
             ->when($search, fn($q, $s) => $q->where('name', 'like', "%$s%")->orWhere('email', 'like', "%$s%"))
-            ->when($selectedType, fn($q, $t) => $q->where('type', $t))
+            ->when($selectedType, fn($q, $t) => $q->whereHas('role', fn($r) => $r->where('role_name', $t)))
             ->get();
         return view('manager.account.index', compact('accounts', 'search', 'selectedType'));
     }

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model
+class Save extends Model
 {
-    protected $primaryKey = 'report_id';
+    protected $primaryKey = 'save_id';
 
-    protected $fillable = ['promt_id', 'account_id', 'reason', 'created_at'];
+    protected $fillable = ['promt_id', 'account_id', 'created_at'];
 
     public function promt() { return $this->belongsTo(Promt::class, 'promt_id'); }
     public function account() { return $this->belongsTo(Account::class, 'account_id'); }

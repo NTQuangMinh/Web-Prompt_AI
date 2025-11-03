@@ -8,23 +8,21 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::create('account', function (Blueprint $table) {
+            $table->id('account_id');
+            $table->string('username');
             $table->string('email')->unique();
-            $table->string('type');  // 'admin' or 'user'
             $table->string('password');
+            $table->string('fullname')->nullable();
+            $table->text('description')->nullable();
             $table->string('avatar')->nullable();
-            $table->text('bio')->nullable();
-            $table->string('tiktok_id')->nullable();
-            $table->integer('followers_count')->default(0);
-            $table->integer('following_count')->default(0);
+            $table->foreignId('role_id')->constrained('role');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('account');
     }
 };
